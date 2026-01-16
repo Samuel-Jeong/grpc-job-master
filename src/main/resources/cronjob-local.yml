@@ -1,0 +1,8 @@
+sos_fleet_indexing_scheduler_dev:
+  cron: "*/1 * * * *"
+  timezone: "Asia/Seoul"
+
+capshome_sos_disconnect_notice_talk_schedule_dev:
+  cron: "*/1 * * * *"
+  timezone: "Asia/Seoul"
+

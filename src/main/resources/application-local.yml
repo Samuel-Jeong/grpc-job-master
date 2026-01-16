@@ -1,0 +1,56 @@
+server:
+  port: 8222
+
+grpc:
+  server:
+    port: 9090        # gRPC 서버 포트(HTTP/2)
+    reflection-service-enabled: true  # grpcurl 등 개발툴 사용 편리
+
+spring:
+  application:
+    name: capshome-job-master-app-demo
+
+job:
+  master:
+    thread-pool:
+      core-size: 5
+      max-size: 10
+      queue-capacity: 100
+      watermark: 90
+
+aws:
+  elasticache:
+    valkey:
+      endpoint:
+        host: "clustercfg.capshome-job-demo-cache.7csknd.apn2.cache.amazonaws.com"
+        port: 6379
+
+schedule:
+  target-collector:
+    thread:
+      pool-size: 5
+      queue-size: 5
+  job-allocator:
+    thread:
+      pool-size: 5
+      queue-size: 5
+
+logging:
+  level:
+    root: INFO
+  file:
+    name: api
+    path: capshome/job-system/job-master-app/logs
+
+monitoring:
+  system:
+    enable-scheduler: true
+    sample-interval-ms: 5000
+    cpu-warn: 80
+    cpu-crit: 90
+    mem-warn: 80
+    mem-crit: 90
+    disk-warn: 80
+    disk-crit: 90
+    jvm-warn: 80
+    jvm-crit: 90
