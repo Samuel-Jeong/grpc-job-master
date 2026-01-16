@@ -10,12 +10,13 @@ Spring Boot 기반의 작업 스케줄러/마스터 데모 애플리케이션입
 ```mermaid
 flowchart LR
   subgraph Master["grpc-job-master (Spring Boot)"]
-    API["REST API\nPOST /v1/api/grpc/work"]
-    JS["JobScheduler\n(스케줄 등록/취소)"]
-    JA["JobAdder\n(CRON 다음 실행시점 계산)"]
-    EXQ["JobExecutor Pool\n(Round-Robin 분배)"]
-    GC["GrpcClientService\n(gRPC Client)"]
-    CJ["CronJobConfig\ncronjob-*.yml 로딩"]
+    API["REST API<br/>POST /v1/api/grpc/work"]
+    JS["JobScheduler<br/>(스케줄 등록 / 취소)"]
+    JA["JobAdder<br/>(CRON 다음 실행시점 계산)"]
+    EXQ["JobExecutor Pool<br/>(Round-Robin 분배)"]
+    GC["GrpcClientService<br/>(gRPC Client)"]
+    CJ["CronJobConfig<br/>cronjob-*.yml 로딩"]
+
     API --> JS
     CJ --> JS
     JS --> JA
@@ -24,38 +25,39 @@ flowchart LR
   end
 
   subgraph Worker["grpc-job-worker (Spring Boot, web=NONE)"]
-    GS["GrpcServerService\n(gRPC Server 기동/중지)"]
-    IMPL["WorkerGrpcServiceImpl\nSendWork 처리"]
-    WM["JobMaster + ThreadPoolTaskExecutor\n(작업 실행/수용량 판단)"]
-    SM["ScheduleManager\n(내장 스케줄러)"]
-    INIT["InitService / HaHandler\n(부팅 초기화/Job 등록)"]
+    GS["GrpcServerService<br/>(gRPC Server 기동 / 중지)"]
+    IMPL["WorkerGrpcServiceImpl<br/>SendWork 처리"]
+    WM["JobMaster + ThreadPoolTaskExecutor<br/>(작업 실행 / 수용량 판단)"]
+    SM["ScheduleManager<br/>(내장 스케줄러)"]
+    INIT["InitService / HaHandler<br/>(부팅 초기화 / Job 등록)"]
+
     GS --> IMPL --> WM
     INIT --> GS
     INIT --> SM
   end
 
-  subgraph Redis["AWS ElastiCache (Valkey/Redis)"]
-    KEY["키: wpm-apps:<ip>:<pid>\n값: PodInfo JSON\nTTL 관리"]
+  subgraph Redis["AWS ElastiCache (Valkey / Redis)"]
+    KEY["키: wpm-apps:&lt;ip&gt;:&lt;pid&gt;<br/>값: PodInfo JSON<br/>TTL 관리"]
   end
 
-  Master -- "gRPC: worker.WorkerService/SendWork" --> Worker
-  Worker -- "상태 보고/갱신" --> Redis
-  Master -- "워커 상태/타겟 수집(예시)" --> Redis
+  Master -- "gRPC : worker.WorkerService / SendWork" --> Worker
+  Worker -- "상태 보고 / 갱신" --> Redis
+  Master -- "워커 상태 / 타겟 수집" --> Redis
 ```
 
 ## 마스터 내부 구조(스케줄링/분배/호출)
 ```mermaid
 flowchart TB
   subgraph MasterInner["grpc-job-master 내부"]
-    API["GrpcController\nPOST /v1/api/grpc/work"]
-    JS["JobScheduler\n- schedule(Job)\n- cancel(Job)\n- stop()"]
-    RR["Round-Robin 분배\n(JobScheduler → N개의 JobExecutor)"]
-    EX1["JobExecutor #1\n(내부 큐로 실행)"]
-    EX2["JobExecutor #2\n(내부 큐로 실행)"]
+    API["GrpcController<br/>POST /v1/api/grpc/work"]
+    JS["JobScheduler<br/>- schedule(Job)<br/>- cancel(Job)<br/>- stop()"]
+    RR["Round-Robin 분배<br/>(JobScheduler → N개의 JobExecutor)"]
+    EX1["JobExecutor #1<br/>(내부 큐로 실행)"]
+    EX2["JobExecutor #2<br/>(내부 큐로 실행)"]
     EXN["JobExecutor #N"]
-    JA["JobAdder\n- CRON 다음 실행시점 계산\n- 실행 후 다음 스케줄 재연결"]
-    GC["GrpcClientService\n(gRPC 호출)"]
-    CJ["CronJobConfig\ncronjob-${profile}.yml 로딩"]
+    JA["JobAdder<br/>- CRON 다음 실행시점 계산<br/>- 실행 후 다음 스케줄 재연결"]
+    GC["GrpcClientService<br/>(gRPC 호출)"]
+    CJ["CronJobConfig<br/>cronjob-${profile}.yml 로딩"]
 
     API --> JS
     CJ --> JS
