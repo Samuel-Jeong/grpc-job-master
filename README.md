@@ -37,7 +37,7 @@ Spring Boot 기반의 작업 스케줄러/마스터 데모 애플리케이션입
 job-master-app-demo/
 ├─ build.gradle
 ├─ settings.gradle
-├─ src/main/java/com/telcoware/job_master_app_demo/
+├─ src/main/java/com/dovaj/job_master_app_demo/
 │  ├─ JobMasterAppDemoApplication.java                    # Spring Boot 진입점
 │  ├─ config/
 │  │  ├─ CronJobConfig.java                               # 프로필별 cronjob-*.yml 로딩
