@@ -7,7 +7,7 @@ import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 /**
- * packageName    : com.capshome.iotgw.scheduler.job
+ * packageName    : com.dovaj.job_master_app_demo.scheduler.job
  * fileName       : JobBuilder
  * author         : samuel
  * date           : 24. 8. 5.

@@ -79,11 +79,11 @@ job-master-app-demo/
 - `CronJobConfig`가 애플리케이션 시작 시 `cronjob-${spring.profiles.active}.yml`을 읽어 `Map<String, LinkedHashMap<String, String>>` 형태로 보관
 - 예: `cronjob-local.yml`
   ```yaml
-  sos_fleet_indexing_scheduler_dev:
+  sync_user_status:
     cron: "*/1 * * * *"
     timezone: "Asia/Seoul"
 
-  capshome_sos_disconnect_notice_talk_schedule_dev:
+  cleanup_expired_user_data:
     cron: "*/1 * * * *"
     timezone: "Asia/Seoul"
   ```
@@ -106,7 +106,7 @@ job-master-app-demo/
     elasticache:
       valkey:
         endpoint:
-          host: "clustercfg.capshome-job-demo-cache.7csknd.apn2.cache.amazonaws.com"
+          host: "clustercfg.dovaj-job-demo-cache.7csknd.apn2.cache.amazonaws.com"
           port: 6379
   ```
 - 실제 환경에 맞게 `host`, `port`를 조정하세요.
@@ -158,7 +158,7 @@ PROFILE=local java -jar build/libs/job-master-app-demo-0.0.1-SNAPSHOT.jar
 ### 배포 실행 스크립트(run.sh) 예시
 - `src/main/resources/bin/run.sh` 참고
 - 기본값으로 다음을 가정:
-  - JAR 경로: `/home/ec2-user/capshome/job-system/job-master-app/libs/job-master-app-demo-0.0.1-SNAPSHOT.jar`
+  - JAR 경로: `/home/ec2-user/dovaj/job-system/job-master-app/libs/job-master-app-demo-0.0.1-SNAPSHOT.jar`
   - JAVA 옵션 및 로그 경로 설정 포함
 - 실제 배포 경로/권한에 맞게 수정하세요.
 
@@ -243,5 +243,5 @@ PROFILE=local java -jar build/libs/job-master-app-demo-0.0.1-SNAPSHOT.jar
 ---
 
 ## 문의
-- 담당자/팀: CAPSHOME Job System Demo
+- 담당자/팀: dovaj Job System Demo
 - 로그/운영 경로: `application.yml`의 서버 액세스 로그, `run.sh`의 GC 로그 경로 참고

@@ -3,7 +3,7 @@
 PROFILES_ACTIVE=local
 
 MAIN_CLASS_NAME=JobMasterAppDemoApplication
-SERVICE_HOME=/home/ec2-user/capshome/job-system/job-master-app
+SERVICE_HOME=/home/ec2-user/dovaj/job-system/job-master-app
 JAR_FILE_PATH=$SERVICE_HOME/libs
 JAR_FILE_NAME=job-master-app-demo-0.0.1-SNAPSHOT.jar
 PATH_TO_JAR=$JAR_FILE_PATH/$JAR_FILE_NAME

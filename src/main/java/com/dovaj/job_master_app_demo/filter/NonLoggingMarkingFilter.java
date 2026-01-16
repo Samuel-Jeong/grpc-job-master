@@ -5,7 +5,7 @@ import jakarta.servlet.*;
 import java.io.IOException;
 
 /**
- * packageName    : com.capshome.iotgw.common.filter
+ * packageName    : com.dovaj.job_master_app_demo.common.filter
  * fileName       : NonLoggingMarkingFilter
  * author         : samuel
  * date           : 24. 8. 12.

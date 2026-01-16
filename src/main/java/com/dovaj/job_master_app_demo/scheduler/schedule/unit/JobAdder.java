@@ -16,7 +16,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
- * packageName    : com.capshome.iotgw.scheduler.schedule.unit
+ * packageName    : com.dovaj.job_master_app_demo.scheduler.schedule.unit
  * fileName       : JobAdder
  * author         : samuel
  * date           : 24. 8. 5.
