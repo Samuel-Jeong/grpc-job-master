@@ -7,6 +7,7 @@ Spring Boot 기반의 작업 스케줄러/마스터 데모 애플리케이션입
 ---
 
 ## 전체 시스템 아키텍처(마스터 ↔ 워커 ↔ Redis)
+```mermaid
 flowchart LR
   subgraph Master["grpc-job-master (Spring Boot)"]
     API["REST API\nPOST /v1/api/grpc/work"]
@@ -40,8 +41,10 @@ flowchart LR
   Master -- "gRPC: worker.WorkerService/SendWork" --> Worker
   Worker -- "상태 보고/갱신" --> Redis
   Master -- "워커 상태/타겟 수집(예시)" --> Redis
+```
 
 ## 마스터 내부 구조(스케줄링/분배/호출)
+```mermaid
 flowchart TB
   subgraph MasterInner["grpc-job-master 내부"]
     API["GrpcController\nPOST /v1/api/grpc/work"]
@@ -65,6 +68,7 @@ flowchart TB
     EX2 --> GC
     EXN --> GC
   end
+```
 
 ---
 
